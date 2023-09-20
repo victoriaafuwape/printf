@@ -1,5 +1,14 @@
 #include "main.h"
 
+/**
+ * print_item - Print a character or a string and update the character count.
+ * @character: The character to print (-1 if printing a string).
+ * @string: The string to print (NULL if printing a character).
+ * @counter: A pointer to the character count to update.
+ *
+ * Return: Nothing.
+ */
+
 void print_item(int character, const char *string, int *counter)
 {
 	const char null_string[] = "(null)";
@@ -30,6 +39,15 @@ void print_item(int character, const char *string, int *counter)
 	}
 }
 
+/**
+ * specify_format - Parse the format string and print characters accordingly.
+ * @format: The format string to parse.
+ * @fspec: The list of arguments.
+ * @counter: A pointer to the character count to update.
+ *
+ * Return: Nothing.
+ */
+
 void specify_format(const char *format, va_list fspec, int *counter)
 {
 	char specifier, character;
@@ -38,14 +56,11 @@ void specify_format(const char *format, va_list fspec, int *counter)
 	while (*format != '\0')
 	{
 		if (*format != '%')
-		{
 			print_item(*format, NULL, counter);
-		}
 		else
 		{
 			format++;
 			specifier = *format;
-
 			if (specifier == 'c')
 			{
 				character = va_arg(fspec, int);
@@ -55,22 +70,14 @@ void specify_format(const char *format, va_list fspec, int *counter)
 			{
 				string = va_arg(fspec, char *);
 				if (string != NULL)
-				{
 					print_item(-1, string, counter);
-				}
 				else
-				{
-					continue;
-				}
+					print_item(-1, NULL, counter);
 			}
 			else if (specifier == '%')
-			{
 				print_item('%', NULL, counter);
-			}
 			else if (specifier == '\0')
-			{
-				continue;
-			}
+				break;
 			else
 			{
 				print_item('%', NULL, counter);
@@ -80,6 +87,13 @@ void specify_format(const char *format, va_list fspec, int *counter)
 		format++;
 	}
 }
+
+/**
+ * _printf - Print formatted output to the standard output.
+ * @format: The format string specifying the output format.
+ *
+ * Return: The number of characters printed.
+ */
 
 int _printf(const char *format, ...)
 {
