@@ -76,7 +76,7 @@ void specify_format(const char *format, va_list fspec, int *counter)
 			}
 			else if (specifier == '%')
 				print_item('%', NULL, counter);
-			else if (specifier == NULL)
+			else if (specifier == '\0')
 				continue;
 			else
 			{
