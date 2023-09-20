@@ -76,13 +76,13 @@ void specify_format(const char *format, va_list fspec, int *counter)
 			}
 			else if (specifier == '%')
 				print_item('%', NULL, counter);
-			else if (specifier == '\0')
-				break;
 			else
 			{
 				print_item('%', NULL, counter);
 				print_item(specifier, NULL, counter);
 			}
+			if (specifier == '\0')
+				break
 		}
 		format++;
 	}
