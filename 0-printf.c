@@ -1,79 +1,99 @@
 #include "main.h"
 
-
-/**
- * _format_printer - function that print format for c, s and %
- * @spec: Representing specifiers
- * @str: representing int
- * @fspec: va list
- *
- * Return: int
- */
-
-int _format_printer(char spec, int str, va_list fspec)
+void print_item(int character, const char *string, int *counter)
 {
-	char character;
-	const char *string;
+	const char null_string[] = "(null)";
+	const char *temp = null_string;
 
-	if (spec == 'c')
+	if (character != -1)
 	{
-		character = va_arg(fspec, int);
 		_putchar(character);
-		str++;
+		(*counter)++;
 	}
-
-	else if (spec == 's')
+	else if (string != NULL)
 	{
-		string = va_arg(fspec, const char *);
 		while (*string != '\0')
 		{
 			_putchar(*string);
-			str++;
+			(*counter)++;
 			string++;
 		}
 	}
-	else if (spec == '%')
+	else
 	{
-		_putchar('%');
-		str++;
+		while (*temp != '\0')
+		{
+			_putchar(*temp);
+			(*counter)++;
+			temp++;
+		}
 	}
-	return (str);
 }
 
-/**
- * _printf - function that produces output according to a format
- * @format: Format String
- * @...: list of arguement
- *
- * Return: int
- */
+void specify_format(const char *format, va_list fspec, int *counter)
+{
+	char specifier, character;
+	const char *string;
 
+	while (*format != '\0')
+	{
+		if (*format != '%')
+		{
+			print_item(*format, NULL, counter);
+		}
+		else
+		{
+			format++;
+			specifier = *format;
+
+			if (specifier == 'c')
+			{
+				character = va_arg(fspec, int);
+				print_item(character, NULL, counter);
+			}
+			else if (specifier == 's')
+			{
+				string = va_arg(fspec, char *);
+				if (string != NULL)
+				{
+					print_item(-1, string, counter);
+				}
+				else
+				{
+					continue;
+				}
+			}
+			else if (specifier == '%')
+			{
+				print_item('%', NULL, counter);
+			}
+			else if (specifier == '\0')
+			{
+				continue;
+			}
+			else
+			{
+				print_item('%', NULL, counter);
+				print_item(specifier, NULL, counter);
+			}
+		}
+		format++;
+	}
+}
 
 int _printf(const char *format, ...)
 {
-	int i = 0, counter = 0;
-	int update;
-	char specifier;
+	int counter = 0;
 	va_list fspec;
 
 	va_start(fspec, format);
-	while (format[i] != '\0')
-	{
-		if (format[i] != '%')
-		{
-			_putchar(format[i]);
-			counter++;
-		}
 
-		if (format[i] == '%')
-		{
-			i++;
-			specifier = format[i];
-			update =  _format_printer(specifier, counter, fspec);
-			counter = update;
-		}
-		i++;
+	if (format == NULL)
+	{
+		return (-1);
 	}
+	specify_format(format, fspec, &counter);
 	va_end(fspec);
+
 	return (counter);
 }
