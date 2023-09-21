@@ -8,6 +8,8 @@ int _putchar(char c);
 
 void print_item(int character, const char *string, int *counter);
 
+void print_integer(int num, int *counter);
+
 void specify_format(const char *format, va_list fspec, int *count);
 
 int _printf(const char *format, ...);

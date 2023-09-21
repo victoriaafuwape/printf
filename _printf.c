@@ -8,7 +8,6 @@
  *
  * Return: Nothing.
  */
-
 void print_item(int character, const char *string, int *counter)
 {
 	const char null_string[] = "(null)";
@@ -40,6 +39,44 @@ void print_item(int character, const char *string, int *counter)
 }
 
 /**
+ * print_integer - prints integer
+ * @num: first arg
+ * @counter: second arg
+ *
+ * Return: nothing
+ */
+void print_integer(int num, int *counter)
+{
+	int num_digits = 0, temp = num;
+	char *num_str, *num_ptr;
+
+	if (num < 0)
+	{
+		print_item('-', NULL, counter);
+		num = -num;
+	}
+	do {
+		temp /= 10;
+		num_digits++;
+	} while (temp > 0);
+	num_str = (char *)malloc(num_digits + 1);
+	if (num_str == NULL)
+	{
+		return;
+	}
+	num_ptr = num_str + num_digits;
+	*num_ptr = '\0';
+	do {
+		num_ptr--;
+		*num_ptr = '0' + (num % 10);
+		num /= 10;
+	} while (num > 0);
+	print_item(-1, num_ptr, counter);
+	free(num_str);
+}
+
+
+/**
  * specify_format - Parse the format string and print characters accordingly.
  * @format: The format string to parse.
  * @fspec: The list of arguments.
@@ -47,26 +84,25 @@ void print_item(int character, const char *string, int *counter)
  *
  * Return: Nothing.
  */
-
 void specify_format(const char *format, va_list fspec, int *counter)
 {
-	char specifier, character;
+	int i, num;
+	char character;
 	const char *string;
 
-	while (*format != '\0')
+	for (i = 0; format[i] != '\0'; i++)
 	{
-		if (*format != '%')
-			print_item(*format, NULL, counter);
+		if (format[i] != '%')
+			print_item(format[i], NULL, counter);
 		else
 		{
-			format++;
-			specifier = *format;
-			if (specifier == 'c')
+			i++;
+			if (format[i] == 'c')
 			{
 				character = va_arg(fspec, int);
 				print_item(character, NULL, counter);
 			}
-			else if (specifier == 's')
+			else if (format[i] == 's')
 			{
 				string = va_arg(fspec, char *);
 				if (string != NULL)
@@ -74,17 +110,21 @@ void specify_format(const char *format, va_list fspec, int *counter)
 				else
 					print_item(-1, NULL, counter);
 			}
-			else if (specifier == '%')
+			else if (format[i] == '%')
 				print_item('%', NULL, counter);
-			else if (specifier == '\0')
+			else if (format[i] == 'd' || format[i] == 'i')
+			{
+				num = va_arg(fspec, int);
+				print_integer(num, counter);
+			}
+			else if (format[i] == '\0')
 				continue;
 			else
 			{
 				print_item('%', NULL, counter);
-				print_item(specifier, NULL, counter);
+				print_item(format[i], NULL, counter);
 			}
 		}
-		format++;
 	}
 }
 
@@ -94,7 +134,6 @@ void specify_format(const char *format, va_list fspec, int *counter)
  *
  * Return: The number of characters printed.
  */
-
 int _printf(const char *format, ...)
 {
 	int counter = 0;
