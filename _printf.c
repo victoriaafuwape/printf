@@ -51,15 +51,10 @@ void print_integer(int num, int *counter)
 	int temp = num;
 	char *num_str, *num_ptr, *num_cpy;
 
-	if (num == INT_MIN)
+	if (num < 0)
 	{
 		print_item('-', NULL, counter);
-		temp = -temp;
-	}
-	else if (num < 0)
-	{
-		print_item('-', NULL, counter);
-		temp = -temp;
+		temp = -num;
 	}
 	while (temp > 0)
 	{
@@ -81,9 +76,9 @@ void print_integer(int num, int *counter)
 	{
 		do {
 			num_ptr--;
-			*num_ptr = '0' + (temp % 10);
-			temp /= 10;
-		} while (temp > 0);
+			*num_ptr = '0' + (num % 10);
+			num /= 10;
+		} while (num > 0);
 	}
 	num_cpy = strdup(num_ptr);
 	print_item(-1, num_cpy, counter);
