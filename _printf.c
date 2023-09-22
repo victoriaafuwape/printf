@@ -47,18 +47,25 @@ void print_item(int character, const char *string, int *counter)
  */
 void print_integer(int num, int *counter)
 {
-	int num_digits = 0, temp = num;
-	char *num_str, *num_ptr;
+	int num_digits = (num == 0) ? 1 : 0;
+	int temp = num;
+	char *num_str, *num_ptr, *num_cpy;
 
-	if (num < 0)
+	if (num == INT_MIN)
 	{
 		print_item('-', NULL, counter);
-		num = -num;
+		temp = -temp;
 	}
-	do {
+	else if (num < 0)
+	{
+		print_item('-', NULL, counter);
+		temp = -temp;
+	}
+	while (temp > 0)
+	{
 		temp /= 10;
 		num_digits++;
-	} while (temp > 0);
+	}
 	num_str = (char *)malloc(num_digits + 1);
 	if (num_str == NULL)
 	{
@@ -66,15 +73,22 @@ void print_integer(int num, int *counter)
 	}
 	num_ptr = num_str + num_digits;
 	*num_ptr = '\0';
-	do {
-		num_ptr--;
-		*num_ptr = '0' + (num % 10);
-		num /= 10;
-	} while (num > 0);
-	print_item(-1, num_ptr, counter);
-	free(num_str);
+	if (num == 0)
+	{
+		*num_str = '0';
+	}
+	else
+	{
+		do {
+			num_ptr--;
+			*num_ptr = '0' + (temp % 10);
+			temp /= 10;
+		} while (temp > 0);
+	}
+	num_cpy = strdup(num_ptr);
+	print_item(-1, num_cpy, counter);
+	free(num_cpy);
 }
-
 
 /**
  * specify_format - Parse the format string and print characters accordingly.
