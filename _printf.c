@@ -46,6 +46,7 @@ void print_item(int character, const char *string, int *counter)
  *
  * Return: nothing
  */
+
 void print_integer(int num, int *counter)
 {
 	int num_digits = (num == 0) ? 1 : 0;
@@ -96,8 +97,9 @@ void print_integer(int num, int *counter)
  * @fspec: The list of arguments.
  * @counter: A pointer to the character count to update.
  *
- * Return: Nothing.
+ * Return: Nothing and void.
  */
+
 void specify_format(const char *format, va_list fspec, int *counter)
 {
 	int i, num;
@@ -149,6 +151,7 @@ void specify_format(const char *format, va_list fspec, int *counter)
  *
  * Return: The number of characters printed.
  */
+
 int _printf(const char *format, ...)
 {
 	int counter = 0;
