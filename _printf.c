@@ -71,7 +71,10 @@ void print_integer(int num, int *counter)
 	if (num == 0)
 	{
 		*num_str = '0';
-		num_ptr--;
+		num_cpy = strdup(num_str);
+		print_item(-1, num_cpy, counter);
+		free(num_cpy);
+		return;
 	}
 	else
 	{
