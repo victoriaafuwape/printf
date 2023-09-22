@@ -17,7 +17,7 @@ bash
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c
 
 ### Task Progression
-Each task will have its own file (e.g., `task0`, `task1`, etc.) with the necessary files for that task. As we progress through the project, we will add new files and directories for each subsequent task.
+Each task will have its own file with the necessary files for that task. As we progress through the project, we will add new files and directories for each subsequent task.
 
 ### Project Tasks
 Here is an overview of the 15 tasks that make up this project:
