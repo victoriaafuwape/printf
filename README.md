@@ -44,12 +44,7 @@ To follow along with the project's progress, you can check out the relevant file
 
 ### Getting Started
 
-If you want to run and test the functions for each task, compile the appropriate file along with the `main.c` in the root directory. For example, to test Task 0:
-
-bash
-cd task0/
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c ../main.c -o task0
-./task0
+If you want to run and test the functions for each task, compile the appropriate file along with the `main.c` in the root directory.
 
 
 ### Contact
