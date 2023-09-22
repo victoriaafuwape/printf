@@ -2,9 +2,18 @@
 #define MAIN_H
 
 #include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+int _putchar(char c);
+
+void print_item(int character, const char *string, int *counter);
+
+void print_integer(int num, int *counter);
+
+void specify_format(const char *format, va_list fspec, int *count);
 
 int _printf(const char *format, ...);
-int _format_printer(char spec, int str, va_list fspec);
-int _putchar(char c);
 
 #endif /* MAIN_H */
