@@ -54,7 +54,7 @@ void print_integer(int num, int *counter)
 	if (num < 0)
 	{
 		print_item('-', NULL, counter);
-		temp = -num;
+		num = -num;
 	}
 	while (temp > 0)
 	{
