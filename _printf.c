@@ -6,8 +6,9 @@
  * @string: The string to print (NULL if printing a character).
  * @counter: A pointer to the character count to update.
  *
- * Return: Nothing.
+ * Return: Nothing or NULL or Void.
  */
+
 void print_item(int character, const char *string, int *counter)
 {
 	const char null_string[] = "(null)";
