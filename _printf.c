@@ -144,6 +144,7 @@ void specify_format(const char *format, va_list fspec, int *counter)
 /**
  * _printf - Print formatted output to the standard output.
  * @format: The format string specifying the output format.
+ * @...: eclipse
  *
  * Return: The number of characters printed.
  */
