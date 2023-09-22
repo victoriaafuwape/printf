@@ -71,6 +71,7 @@ void print_integer(int num, int *counter)
 	if (num == 0)
 	{
 		*num_str = '0';
+		num_ptr--;
 	}
 	else
 	{
