@@ -40,7 +40,7 @@ Here is an overview of the 15 tasks that make up this project:
 
 ### Project Progression
 
-To follow along with the project's progress, you can check out the relevant directories and files for each task. We'll be working through each task sequentially, and each task's completion will be clearly indicated.
+To follow along with the project's progress, you can check out the relevant files for each task. We'll be working through each task sequentially, and each task's completion will be clearly indicated.
 
 ### Getting Started
 
