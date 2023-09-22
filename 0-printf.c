@@ -31,6 +31,8 @@ int _format_printer(char spec, int str, va_list fspec)
 			str++;
 			string++;
 		}
+		if (*string == '\0')
+			_putchar('\0');
 	}
 	else if (spec == '%')
 	{
@@ -39,6 +41,20 @@ int _format_printer(char spec, int str, va_list fspec)
 	}
 	return (str);
 }
+
+/**int _specifier_arrangement(char spec, char *form, va_list fspec)
+{
+	int i = 0;
+
+	while (fspec[i] != 0)
+	{
+		if (sizeof(*fspec[i]) == sizeof(char))
+			return (0);
+		i++;
+	}
+	else
+		return (-1);
+}*/
 
 /**
  * _printf - function that produces output according to a format
@@ -69,8 +85,10 @@ int _printf(const char *format, ...)
 		{
 			i++;
 			specifier = format[i];
-			update =  _format_printer(specifier, counter, fspec);
-			counter = update;
+			result = _specifier_arrangement(char spec, char *form, va_list fspec);
+		
+				update =  _format_printer(specifier, counter, fspec);
+				counter = update;
 		}
 		i++;
 	}
